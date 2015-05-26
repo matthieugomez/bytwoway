@@ -65,12 +65,9 @@ bytwoway line wage grade, by(smsa race)
 
 ## Script
 
-`bytwoway` returns the script  to generate the output
+`bytwoway` returns the macro `r(cmd)` that generates the final graph:
 
 ```
-return list
-
-
 macros:
    	r(cmd) : twoway (line wage grade in 1/16, mcolor(`"navy"') lcolor(`"navy"') ///
 			lpattern(`"solid"') msymbol(`"circle"') legend(label(1 white))) (line wage grade in ///
