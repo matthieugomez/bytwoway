@@ -37,9 +37,18 @@ local touse_first=_N-`samplesize'+1
 local touse_last=_N
 tempvar bylength
 
+bys `touse' `by' (`withinsort'): gen long `bylength' = _N 
+local start = `touse_first'
+local iter = 0
+
+tempvar t
+bys `touse' `by' : gen long `t' = _n == _N if `touse'
+count if `t'
+local bynum = r(N)
+
+
+
 /* aesthetics */
-qui tab `by' if `touse'==1, nofreq 
-local bynum=r(r)
 * default aesthetics to color and replace color by mcolor and lcolor
 if "`aesthetics'" == ""{
     local aesthetics mcolor lcolor
@@ -49,9 +58,19 @@ local aesthetics = subinstr(" `aesthetics' ", " color ", " mcolor lcolor ", 1)
 
 if `"`colors'"' == ""{
     if "`palette'" ~= ""{
-        cap assert "`mcolor'`lcolor'" ~= ""
-        colorscheme `bynum', palette(`palette')
-        local colors `"`=r(colors)'"'
+        if regexm("`aesthetics'", "mcolor") | regexm("`aesthetics'", "lcolor"){
+            cap which colorscheme.ado
+            if _rc {
+                di as error "colorscheme.ado required when using the option palette: {stata net install colorscheme, from(https://github.com/matthieugomez/stata-colorscheme)}"
+                exit 111
+            }
+            colorscheme `bynum', palette(`palette')
+            local colors `"`=r(colors)'"'
+        }
+        else{
+            di as error "You must specify one of color, mcolor, lcolor in the option aes"
+            exit      
+        }
     }
     else{
         local colors ///
@@ -60,6 +79,9 @@ if `"`colors'"' == ""{
         lime magenta cyan pink blue
     }
 }
+
+/* prepare script for each by value */
+
 
 * Fill colors if missing
 local color1 `: word 1 of `colors''
@@ -115,16 +137,16 @@ local byn: word count `by'
 if `byn' >1 {
     local iby = 0
     foreach v in `by'{
-     local ++iby
-     local bylabel`iby' `: value label `v''
-     local byname`iby' `: var label `v''
-     if `"byname`iby'"' == ""{
-         local byname`iby' `v'
-     }
-     local byname `"`byname'`separation'`byname`iby''"'
- }
- local byname =subinstr(`"`byname'"',"`separation'"," ",1)
- local bylegend legend(subtitle(`"`byname'"'))
+       local ++iby
+       local bylabel`iby' `: value label `v''
+       local byname`iby' `: var label `v''
+       if `"byname`iby'"' == ""{
+           local byname`iby' `v'
+       }
+       local byname `"`byname'`separation'`byname`iby''"'
+   }
+   local byname =subinstr(`"`byname'"',"`separation'"," ",1)
+   local bylegend legend(subtitle(`"`byname'"'))
 }
 else{
     local byname `: var label `by''
@@ -137,10 +159,7 @@ else{
 
 
 
-/* prepare script for each by value */
-bys `touse' `by' (`withinsort'): gen long `bylength' = _N 
-local start = `touse_first'
-local iter = 0
+
 while `start' <= `touse_last'{
     local ++iter
     local optionlabel

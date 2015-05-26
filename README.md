@@ -65,6 +65,14 @@ bytwoway line wage grade, by(smsa race)
 ![](img/groups.jpg)
 
 
+## Colorscheme
+
+If [colorscheme](https://github.com/matthieugomez/stata-colorscheme) is installed, you can specify a set of color using the option `palette`
+
+```
+bytwoway line wage grade, by(smsa race) palette(GnBu)
+```
+
 ## Script
 
 `bytwoway` returns the macro `r(cmd)` that generates the final graph:
