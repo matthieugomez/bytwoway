@@ -67,11 +67,14 @@ bytwoway line wage grade, by(smsa race)
 
 ## Colorscheme
 
-If [colorscheme](https://github.com/matthieugomez/stata-colorscheme) is installed, you can specify a set of color using the option `palette`
+You can use any palette in the package [colorscheme](https://github.com/matthieugomez/stata-colorscheme) using the option `palette`
 
 ```
 bytwoway line wage grade, by(smsa race) palette(GnBu)
 ```
+![](img/palette.jpg)
+
+
 
 ## Script
 
@@ -85,4 +88,10 @@ macros:
 			legend(label(2 black))) (line wage grade in 33/43, mcolor(`"forest_green"') ///
 			lcolor(`"forest_green"') lpattern(`"solid"') msymbol(`"circle"') ///
 			legend(label(3 other))),  legend(subtitle(`"race"'))  
+```
+
+# Installation
+
+```
+net install bytwoway, from(https://github.com/matthieugomez/stata-bytwoway)
 ```
