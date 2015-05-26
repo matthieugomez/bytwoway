@@ -1,0 +1,14 @@
+v 3
+
+d bytwoway. graph by groups
+d
+d Author: Matthieu Gomez
+d
+d
+d KW: twoway
+d
+d Requires: Stata version 11.2
+d
+d Distribution-Date: 20150330
+d
+f bytwoway.ado

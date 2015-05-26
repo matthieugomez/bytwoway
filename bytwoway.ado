@@ -1,4 +1,4 @@
-program bytwoway, rclass sortpreserve
+program bytwoway, rclass 
 syntax anything [if] [in], /// 
 by(varlist) ///
 [Missing ///
