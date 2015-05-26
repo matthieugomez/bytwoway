@@ -1,6 +1,6 @@
 # Stata-bytwoway
 
-`bytwoway` is a convenience command to plot graphs by group in Stata
+`bytwoway` is a convenience command to plot graphs by group in Stata.
 
 ## Examples
 
