@@ -1,4 +1,4 @@
-program bytwoway, sortpreserve
+program bytwoway, rclass sortpreserve
 syntax anything [if] [in], /// 
 by(varlist) ///
 [Missing ///
@@ -19,7 +19,7 @@ if "`separation'" == ""{
     local separation ", "
 }
 if "`legend'" ~= ""{
-    local legend legend(`legend')
+    local legendoption legend(`legend')
 }
 /* save initial sort */
 local sortedby `:sortedby'
@@ -43,16 +43,8 @@ local bynum=r(r)
 if "`aesthetics'" == ""{
     local aesthetics mcolor lcolor
 }
-local aesthetics2
-foreach a in `aesthetics'{
-    if "`a'" == "color"{
-        local aesthetics2 `aesthetics2' mcolor lcolor
-    }
-    else{
-        local aesthetics2 `aesthetics2' `a'
-    }
-}
-local aesthetics `aesthetics2'
+local aesthetics = subinstr(" `aesthetics' ", " color ", " mcolor lcolor ", 1)
+
 
 if `"`colors'"' == ""{
     if "`palette'" ~= ""{
@@ -106,7 +98,7 @@ if `"`lpatterns'"'=="" {
 }
 
 if `"`msymbols'"'=="" {
-    if regexm("`aesthetics'","lpattern"){
+    if regexm("`aesthetics'","msymbol"){
         local msymbols circle diamond square triangle x plus circle_hollow diamond_hollow square_hollow triangle_hollow smcircle smdiamond smsquare smtriangle smx
 
     }
@@ -175,19 +167,22 @@ while `start' <= `touse_last'{
         }
         local byvalname `=subinstr(`"`byvalname'"',"`separation'"," ",1)'
     }
-    local graph_option`iter' `graph_option' 
+    local graph_option`iter' `graph_option'
     foreach a in `aesthetics' {
         local graph_option`iter' `graph_option`iter''  `a'(`"`:word `iter' of ``a's''"')
     }
     if "`legend'" ~= "off"{
-        local graph_option`iter' `graph_option' legend(label(`iter'  `byvalname')) 
+        local legendlabel `legendlabel' `iter'  `"`byvalname'"'
     }
     local script `script' (`anything' in `start'/`end', `graph_option`iter'')
     local start = `end' + 1
 }
 
 /* graph */
-twoway `script',  `bylegend'  `options' `legend'
+local cmd twoway `script',  `bylegend'  `options' legend(label(`legendlabel')) `legendoption'
+qui `cmd'
+return local cmd = `cmd'
+
 end
 
 /***************************************************************************************************
