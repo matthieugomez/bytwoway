@@ -47,9 +47,11 @@ bytwoway line wage grade, by(race) aes(color) colors(`""248 118 109" "0 186 56" 
 You can add individual options by enclosing the main command into parenthesis 
 
 ```
-bytwoway (scatter wage grade, connect(l)), by(race) 
-![](img/connect.jpg)
+bytwoway (scatter wage grade, connect(l)), by(race) aes(color msymbol)
 ```
+
+![](img/within.jpg)
+
 
 ## Multiple groups
 
