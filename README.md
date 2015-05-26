@@ -1,6 +1,6 @@
 # Stata-bytwoway
 
-
+`bytwoway` is a convenience command to plot graphs by group in Stata
 
 ## Examples
 
@@ -70,13 +70,12 @@ bytwoway line wage grade, by(smsa race)
 ```
 return list
 
-. display r(cmd)
-macros:
-               r(rcm) : twoway (line wage grade in 1/16, mcolor(`"navy"') lcolor(`"navy"') ///
 
-               lpattern(`"solid"') msymbol(`"circle"') legend(label(1 white))) (line wage grade in ///
-               17/32, mcolor(`"maroon"') lcolor(`"maroon"') lpattern(`"solid"') msymbol(`"circle"') /// 
-               legend(label(2 black))) (line wage grade in 33/43, mcolor(`"forest_green"') ///
-               lcolor(`"forest_green"') lpattern(`"solid"') msymbol(`"circle"') ///
-               legend(label(3 other))),  legend(subtitle(`"race"'))  
+macros:
+   	r(cmd) : twoway (line wage grade in 1/16, mcolor(`"navy"') lcolor(`"navy"') ///
+			lpattern(`"solid"') msymbol(`"circle"') legend(label(1 white))) (line wage grade in ///
+			17/32, mcolor(`"maroon"') lcolor(`"maroon"') lpattern(`"solid"') msymbol(`"circle"') /// 
+			legend(label(2 black))) (line wage grade in 33/43, mcolor(`"forest_green"') ///
+			lcolor(`"forest_green"') lpattern(`"solid"') msymbol(`"circle"') ///
+			legend(label(3 other))),  legend(subtitle(`"race"'))  
 ```
