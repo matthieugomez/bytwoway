@@ -37,14 +37,14 @@ bytwoway (scatter wage grade), by(race) aes(color msymbol)
 
 You can specify a particular list for the aesthetics by appending the aesthetic name with an s 
 ```
-bytwoway line wage grade, by(race) aes(color) colors(`""248 118 109" "0 186 56"  "97 156 255""')
+bytwoway line wage grade, by(race) aes(color) colors("248 118 109" "0 186 56"  "97 156 255")
 ```
 ![](img/aescolors.jpg)
 
 
 ## Individual options
 
-You can add individual options by enclosing the main command into parenthesis 
+You can add option for the graphs within group by enclosing the main command into parenthesis 
 
 ```
 bytwoway (scatter wage grade, connect(l)), by(race) aes(color msymbol)
@@ -55,7 +55,7 @@ bytwoway (scatter wage grade, connect(l)), by(race) aes(color msymbol)
 
 ## Multiple groups
 
-You can define groups on the fly:
+You can define groups on the fly with multiple variables
 
 ```
 sysuse nlsw88.dta, clear

@@ -3,16 +3,17 @@ syntax anything [if] [in], ///
 by(varlist) ///
 [Missing ///
 AESthetics(string) ///
-Palette(string) Colors(string) MColors(string) LColors(string) MSymbols(string) LPatterns(string) ///
-legend(string) SEParation(string) ///
+Palette(string) Colors(string asis) MColors(string asis) LColors(string asis) MSymbols(string asis) LPatterns(string asis) ///
+legend(string) SEParation(string) noPLOT ///
 ]
+
 
 /* syntax */
 if regexm("`anything'", "^\((.*)\)$"){
     local anything `=regexs(1)'
     if regexm("`anything'", "^(.*)\,(.*)$"){
         local anything `=regexs(1)'
-        local graph_option `=regexs(2)'
+        local optionwithin `=regexs(2)'
     }
 }
 if "`separation'" == ""{
@@ -142,6 +143,8 @@ local start = `touse_first'
 local iter = 0
 while `start' <= `touse_last'{
     local ++iter
+    local optionlabel
+    local optionaes
     local end = `start' + `bylength'[`start'] - 1
     local byvalname 
     if `byn' == 1{
@@ -167,21 +170,22 @@ while `start' <= `touse_last'{
         }
         local byvalname `=subinstr(`"`byvalname'"',"`separation'"," ",1)'
     }
-    local graph_option`iter' `graph_option'
     foreach a in `aesthetics' {
-        local graph_option`iter' `graph_option`iter''  `a'(`"`:word `iter' of ``a's''"')
+        local optionaes `optionaes'  `a'(`"`:word `iter' of ``a's''"')
     }
     if "`legend'" ~= "off"{
-        local legendlabel `legendlabel' `iter'  `"`byvalname'"'
+        local optionlabel `optionlabel' legend(label(`iter' `"`byvalname'"'))
     }
-    local script `script' (`anything' in `start'/`end', `graph_option`iter'')
+    local script `script' (`anything' in `start'/`end', `optionwithin' `optionaes' `optionlabel')
     local start = `end' + 1
 }
 
 /* graph */
-local cmd twoway `script',  `bylegend'  `options' legend(label(`legendlabel')) `legendoption'
-qui `cmd'
-return local cmd = `cmd'
+local cmd twoway `script',  `bylegend'  `options' `legendoption'
+if "`plot'" == ""{
+    qui `cmd'
+}
+return local cmd  `"`cmd'"'
 
 end
 
