@@ -42,9 +42,9 @@ bytwoway line wage grade, by(race) aes(color) colors("248 118 109" "0 186 56"  "
 ![](img/aescolors.jpg)
 
 
-## Individual options
+## Graph options within groups
 
-You can add option for the graphs within group by enclosing the main command into parenthesis 
+You can specify options within groups by enclosing the main command into parenthesis 
 
 ```
 bytwoway (scatter wage grade, connect(l)), by(race) aes(color msymbol)
@@ -67,7 +67,7 @@ bytwoway line wage grade, by(smsa race)
 
 ## Colorscheme
 
-You can use any palette in the package [colorscheme](https://github.com/matthieugomez/stata-colorscheme) using the option `palette`
+You can use any palette from the package [colorscheme](https://github.com/matthieugomez/stata-colorscheme) using the option `palette`
 
 ```
 bytwoway line wage grade, by(smsa race) palette(GnBu)
