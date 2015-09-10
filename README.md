@@ -2,7 +2,7 @@
 
 `bytwoway` is a convenience command to plot graphs by group in Stata.
 
-Aesthetics (mcolor, lcolor, lpattern and msymbol) can vary by group:
+Aesthetics among mcolor, lcolor, lpattern and msymbol can vary by group:
 
 ```
 sysuse nlsw88.dta, clear
@@ -19,12 +19,12 @@ bytwoway (scatter wage grade, connect(l)), by(race) aes(color msymbol)
 
 
 
-Specify the aesthetic content by appending the aesthetic name with an s 
+To use different aesthetics than the default ones, append the aesthetic name with an s 
 ```
 bytwoway line wage grade, by(race) aes(color) colors("248 118 109" "0 186 56"  "97 156 255")
 ```
 ![](img/aescolors.jpg)
-If the package [colorscheme](https://github.com/matthieugomez/stata-colorscheme) is installed, you can juste use the option `palette` to use a ggplot / ColorBrewer scheme.
+For colors, you can just use the option `palette` if the package [colorscheme](https://github.com/matthieugomez/stata-colorscheme) is installed.
 
 ```
 bytwoway line wage grade, by(smsa race) palette(GnBu)
