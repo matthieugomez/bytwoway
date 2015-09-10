@@ -2,60 +2,45 @@
 
 `bytwoway` is a convenience command to plot graphs by group in Stata.
 
-## Examples
-
-```
-sysuse nlsw88.dta, clear
-collapse (mean) wage, by(grade race)
-bytwoway line wage grade, by(race)
-```
-![](img/simple.jpg)
-
-
-
 
 
 ## Aesthetics option
 
+Make an aesthetic varies by group using the option aesthetics. Available aesthetics are mcolor, lcolor, lpattern and msymbol 
+
 ```
+sysuse nlsw88.dta, clear
 collapse (mean) wage, by(grade race)
-```
-
-The option aesthetics allow to specify what should change depending on the group. For now, the supported aesthetics are mcolor, lcolor, lpattern, msymbol are supported
-
-```
-bytwoway line wage grade, by(race) aes(color lpattern)
+bytwoway (line wage grade), by(race) aes(color lpattern)
 ```
 ![](img/aeslpattern.jpg)
 
 
 ```
-bytwoway (scatter wage grade), by(race) aes(color msymbol)
+bytwoway (scatter wage grade, connect(l)), by(race) aes(color msymbol)
 ```
-![](img/aesmsymbol.jpg)
+![](img/within.jpg)
 
 
-You can specify a particular list for the aesthetics by appending the aesthetic name with an s 
+
+Specify a particular list to cycle through by appending the aesthetic name with an s 
 ```
 bytwoway line wage grade, by(race) aes(color) colors("248 118 109" "0 186 56"  "97 156 255")
 ```
 ![](img/aescolors.jpg)
-
-
-## Graph options within groups
-
-You can specify options within groups by enclosing the main command into parenthesis 
+Use any color palette from the package [colorscheme](https://github.com/matthieugomez/stata-colorscheme) using the option `palette`
 
 ```
-bytwoway (scatter wage grade, connect(l)), by(race) aes(color msymbol)
+bytwoway line wage grade, by(smsa race) palette(GnBu)
 ```
+![](img/palette.jpg)
 
-![](img/within.jpg)
+
 
 
 ## Multiple groups
 
-You can define groups on the fly with multiple variables
+Define groups on the fly with multiple variables
 
 ```
 sysuse nlsw88.dta, clear
@@ -64,15 +49,6 @@ bytwoway line wage grade, by(smsa race)
 ```
 ![](img/groups.jpg)
 
-
-## Colorscheme
-
-You can use any palette from the package [colorscheme](https://github.com/matthieugomez/stata-colorscheme) using the option `palette`
-
-```
-bytwoway line wage grade, by(smsa race) palette(GnBu)
-```
-![](img/palette.jpg)
 
 
 
@@ -93,7 +69,7 @@ macros:
 # Installation
 
 ```
-net install bytwoway, from(https://github.com/matthieugomez/stata-bytwoway)
+net install bytwoway, from(https://github.com/matthieugomez/stata-bytwoway/raw/master)
 ```
 
 If you have a version of Stata < 13, you need to install it manually
