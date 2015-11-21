@@ -4,7 +4,7 @@ by(varlist) ///
 [Missing ///
 AESthetics(string) ///
 Palette(string) Colors(string asis) MColors(string asis) LColors(string asis) MSymbols(string asis) LPatterns(string asis) ///
-legend(string) SEParation(string) noPLOT ///
+legend(string) SEParation(string) noPLOT * ///
 ]
 
 
@@ -31,6 +31,7 @@ marksample touse
 if "`missing'" == "" {
     markout `touse' `by' , strok
 }
+
 qui count if `touse'
 local samplesize=r(N)
 local touse_first=_N-`samplesize'+1
@@ -43,7 +44,7 @@ local iter = 0
 
 tempvar t
 bys `touse' `by' : gen long `t' = _n == _N if `touse'
-count if `t'
+count if `t' & `touse'
 local bynum = r(N)
 
 
