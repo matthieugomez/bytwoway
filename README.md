@@ -1,4 +1,4 @@
-# Stata-bytwoway
+# bytwoway.ado
 
 `bytwoway` is a convenience command to plot graphs *by groups*. The script following `bytwoway` is executed for each group. Colors and patterns can vary accross groups with the `aesthetics` option.
 
@@ -62,7 +62,7 @@ macros:
 # Installation
 
 ```
-net install bytwoway, from(https://github.com/matthieugomez/stata-bytwoway/raw/master)
+net install bytwoway, from("https://raw.githubusercontent.com/matthieugomez/bytwoway.ado/master/")
 ```
 
 If you have a version of Stata < 13, you need to install it manually
