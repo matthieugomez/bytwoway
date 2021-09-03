@@ -62,7 +62,7 @@ macros:
 # Installation
 
 ```
-net install bytwoway, from("https://raw.githubusercontent.com/matthieugomez/bytwoway.ado/master/")
+net install bytwoway, from("https://raw.githubusercontent.com/matthieugomez/bytwoway/master/")
 ```
 
 If you have a version of Stata < 13, you need to install it manually
